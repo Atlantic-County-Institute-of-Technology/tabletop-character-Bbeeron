@@ -21,14 +21,61 @@ class Character {
         cha = 10;
         name = "Player";
         level = 1;
-        hp = 10;
-        ac = 10;
+        calculateHitPoints();
+        calculateArmorClass();
         feats = new ArrayList<String>();
 
     }
 
     public Character(String name, int level){
-        ;
+        this.name = name;
+        this.level = level;
+        calculateHitPoints();
+        calculateArmorClass();
+
+        stth = calcStats();
+        dex = calcStats();
+        con = calcStats();
+        intl = calcStats();
+        wis = calcStats();
+        cha = calcStats();
+        feats = new ArrayList<String>();
+    }
+
+    public int calcStats(){
+        Random rand = new Random();
+
+        int fDie = rand.nextInt(6);
+        int sDie = rand.nextInt(6);
+        int tDie = rand.nextInt(6);
+        int foDie = rand.nextInt(6);
+
+        int[] compare = {fDie, sDie, tDie, foDie};
+
+        for (int i = 0; i < compare.length; i++){
+            for (int j = 1; j < compare.length-1; j++){
+                if ( compare[i] < compare[j] ){
+                    int temp = compare[i];
+                    compare[i] = compare[j];
+                    compare[j] = temp;
+                }
+            }
+        }
+        int sum = 0;
+        int count = 0;
+        for ( int num : compare){
+            count++;
+            if (count == 4){
+                break;
+            }
+            else{
+                sum += num;
+            }
+
+        }
+
+        return sum;
+
     }
 
     public void calculateHitPoints(){
@@ -52,9 +99,8 @@ class Character {
     public void levelUp(){
         level+=1;
 
-        hp += 1;
-
-        ac += 1;
+        calculateHitPoints();
+        calculateArmorClass();
 
 
 
