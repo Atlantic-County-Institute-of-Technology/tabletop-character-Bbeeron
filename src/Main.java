@@ -1,27 +1,29 @@
-import java.util.ArrayList;
+import java.util.*;
 class Character {
-    private int strength;
-    private int dexterity;
-    private int vitality;
-    private int wisdom;
-    private int charisma;
+    private int stth;
+    private int dex;
+    private int con;
+    private int intl;
+    private int wis;
+    private int cha;
     private String name;
     private int level;
-    private int health;
-    private int defense;
+    private int hp;
+    private int ac;
     private ArrayList<String> feats;
 
     public Character(){
-        strength = 10;
-        dexterity = 10;
-        vitality = 10;
-        wisdom = 10;
-        charisma = 10;
+        stth = 10;
+        dex = 10;
+        con = 10;
+        intl = 10;
+        wis = 10;
+        cha = 10;
         name = "Player";
         level = 1;
-        health = 10;
-        defense = 10;
-        feats = new ArrayList<>();
+        hp = 10;
+        ac = 10;
+        feats = new ArrayList<String>();
 
     }
 
@@ -31,32 +33,45 @@ class Character {
 
     public void calculateHitPoints(){
         if (level == 1){
-            health += (10 + vitality);
+            hp += (10 + con);
         }
         else{
-            health += ((level - 1) * (6 + vitality));
+            hp += ((level - 1) * (6 + con));
         }
     }
 
     public void calculateArmorClass(){
-        defense += (10 + dexterity);
+        ac += (10 + dex);
     }
 
 
     public int getAbilityModifier(int score){
-        return score;
+        return (int) Math.floor((double) (score - 10) / 2);
     }
 
     public void levelUp(){
-        ;
+        level+=1;
+
+        hp += 1;
+
+        ac += 1;
+
+
+
     }
 
-    public void addFear(String feat){
-        ;
+    public void addFeat(String feat){
+        feats.add(feat);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Character: " + name + "Level: " + "Class" +
+                "\nHP: " + hp + " | " + " AC: " + ac +
+                "\nSTR: " + stth + " | " + " DEX: " + dex + " | " + " CON: " + con +
+                "\nINT: " + intl + " | " + " WIS: " + wis + " | " + " CHA: " + cha +
+                "\nFeats: " + feats;
+    }
 }
 
 public class Main {
