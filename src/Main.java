@@ -1,16 +1,16 @@
 import java.util.*;
 class Character {
-    private int stth;
-    private int dex;
-    private int con;
-    private int intl;
-    private int wis;
-    private int cha;
-    private String name;
-    private int level;
-    private int hp;
-    private int ac;
-    private ArrayList<String> feats;
+    protected int stth;
+    protected int dex;
+    protected int con;
+    protected int intl;
+    protected int wis;
+    protected int cha;
+    protected String name;
+    protected int level;
+    protected int hp;
+    protected int ac;
+    protected ArrayList<String> feats;
 
     public Character(){
         stth = 10;
@@ -80,15 +80,15 @@ class Character {
 
     public void calculateHitPoints(){
         if (level == 1){
-            hp += (10 + con);
+            hp += (10 + getAbilityModifier(con));
         }
         else{
-            hp += ((level - 1) * (6 + con));
+            hp += ((level - 1) * (6 + getAbilityModifier(con)));
         }
     }
 
     public void calculateArmorClass(){
-        ac += (10 + dex);
+        ac += (10 + getAbilityModifier(dex));
     }
 
 
@@ -110,18 +110,49 @@ class Character {
         feats.add(feat);
     }
 
+
+}
+
+class Paladin extends Character {
+
+    public Paladin(String name, int level){
+        super(name, level);
+
+        stth+=2;
+
+        cha+=1;
+
+    }
+
     @Override
     public String toString() {
-        return "Character: " + name + "Level: " + "Class" +
+        String clas = "Paladin";
+        return "Character: " + name + " Level: " + level + " Class: " + clas +
                 "\nHP: " + hp + " | " + " AC: " + ac +
-                "\nSTR: " + stth + " | " + " DEX: " + dex + " | " + " CON: " + con +
-                "\nINT: " + intl + " | " + " WIS: " + wis + " | " + " CHA: " + cha +
+                "\nSTR: " + stth + "(+2) | " + " DEX: " + dex + " | " + " CON: " + con +
+                "\nINT: " + intl + " | " + " WIS: " + wis + " | " + " CHA: " + cha + "(+1) " +
                 "\nFeats: " + feats;
     }
 }
 
 public class Main {
     public static void main(String[] args){
+        Paladin myPal = new Paladin("Ty", 4);
 
+        myPal.addFeat("Divine Smite");
+        myPal.addFeat("Aura of Protection");
+
+        System.out.println(myPal);
+
+        myPal.levelUp();
+
+        System.out.println("\n" + myPal);
+
+        Paladin myPal2 = new Paladin("Fyne", 9);
+
+        myPal2.addFeat("Divine Smite");
+        myPal2.addFeat("Aura of Protection");
+
+        System.out.println("\n" + myPal2);
     }
 }
