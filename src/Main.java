@@ -1,5 +1,11 @@
-import java.util.*;
-class Character {
+// Byron Manuel
+// 04-04-25
+// AP Comp Sci
+// Mr. Costantino
+
+import java.util.*;     // Imports all known libraries in Java
+
+class Character {       // Character class initializes basic character creation for DnD
     protected int stth;
     protected int dex;
     protected int con;
@@ -10,9 +16,9 @@ class Character {
     protected int level;
     protected int hp;
     protected int ac;
-    protected ArrayList<String> feats;
+    protected ArrayList<String> feats;      // All variables label different parts of a character
 
-    public Character(){
+    public Character(){     // For character initialization
         stth = 10;
         dex = 10;
         con = 10;
@@ -27,13 +33,13 @@ class Character {
 
     }
 
-    public Character(String name, int level){
+    public Character(String name, int level){       // Used by subclasses to base out of
         this.name = name;
         this.level = level;
         calculateHitPoints();
         calculateArmorClass();
 
-        stth = calcStats();
+        stth = calcStats();     // Function calcStats() offers a random sum for ability scores
         dex = calcStats();
         con = calcStats();
         intl = calcStats();
@@ -42,7 +48,7 @@ class Character {
         feats = new ArrayList<String>();
     }
 
-    public int calcStats(){
+    public int calcStats(){     // Takes the biggest three out of four "dice-rolls" (random integer out of 6) and sums them
         Random rand = new Random();
 
         int fDie = rand.nextInt(6);
@@ -54,7 +60,7 @@ class Character {
 
         for (int i = 0; i < compare.length; i++){
             for (int j = 1; j < compare.length-1; j++){
-                if ( compare[i] < compare[j] ){
+                if ( compare[i] < compare[j] ){     // Sorts though the list to make sure the three biggest nums are in the front
                     int temp = compare[i];
                     compare[i] = compare[j];
                     compare[j] = temp;
@@ -69,7 +75,7 @@ class Character {
                 break;
             }
             else{
-                sum += num;
+                sum += num; // Adds the first three integers
             }
 
         }
@@ -78,7 +84,7 @@ class Character {
 
     }
 
-    public void calculateHitPoints(){
+    public void calculateHitPoints(){       // Calculate how much health a character has based on added modifiers
         if (level == 1){
             hp += (10 + getAbilityModifier(con));
         }
@@ -87,16 +93,16 @@ class Character {
         }
     }
 
-    public void calculateArmorClass(){
+    public void calculateArmorClass(){          // Calculates armor based on added modifiers
         ac += (10 + getAbilityModifier(dex));
     }
 
 
-    public int getAbilityModifier(int score){
+    public int getAbilityModifier(int score){       // Checks whether there are changes made on the current ability sum
         return (int) Math.floor((double) (score - 10) / 2);
     }
 
-    public void levelUp(){
+    public void levelUp(){          // Increments a character's level, health, and armorclass
         level+=1;
 
         calculateHitPoints();
@@ -106,20 +112,20 @@ class Character {
 
     }
 
-    public void addFeat(String feat){
+    public void addFeat(String feat){       // Adds a string into the arrayList
         feats.add(feat);
     }
 
 
 }
 
-class Paladin extends Character {
+class Paladin extends Character {       // Subclass uses the given superclass (Character) and inherits variables and functions
 
-    public Paladin(String name, int level){
+    public Paladin(String name, int level){     // Based on the Character() function
         super(name, level);
 
         stth+=2;
-
+                    // Adds 
         cha+=1;
 
     }
