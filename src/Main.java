@@ -121,17 +121,17 @@ class Character {       // Character class initializes basic character creation 
 
 class Paladin extends Character {       // Subclass uses the given superclass (Character) and inherits variables and functions
 
-    public Paladin(String name, int level){     // Based on the Character() function
+    public Paladin(String name, int level){     // Based on the Character() function, takes the name and level from character
         super(name, level);
 
         stth+=2;
-                    // Adds 
+                    // Adds the class modifiers
         cha+=1;
 
     }
 
     @Override
-    public String toString() {
+    public String toString() {      // Formats output for clearer perspective
         String clas = "Paladin";
         return "Character: " + name + " Level: " + level + " Class: " + clas +
                 "\nHP: " + hp + " | " + " AC: " + ac +
@@ -143,14 +143,14 @@ class Paladin extends Character {       // Subclass uses the given superclass (C
 
 public class Main {
     public static void main(String[] args){
-        Paladin myPal = new Paladin("Ty", 4);
+        Paladin myPal = new Paladin("Ty", 4);       // Test 1, creates Paladin subclass
 
         myPal.addFeat("Divine Smite");
-        myPal.addFeat("Aura of Protection");
+        myPal.addFeat("Aura of Protection");        // Adds into arraylist using the addFeat method
 
         System.out.println(myPal);
 
-        myPal.levelUp();
+        myPal.levelUp();        // Testing level-up function to ensure the calculations work
 
         System.out.println("\n" + myPal);
 
